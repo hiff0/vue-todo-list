@@ -16,8 +16,9 @@
 <script lang="ts">
 import ButtonOutline from './ButtonOutline.vue';
 import { mapGetters } from 'vuex';
+import Vue from 'vue';
 
-export default {
+export default Vue.extend({
     components: {
         ButtonOutline
     },
@@ -26,5 +27,5 @@ export default {
             assignmentList: 'assignments',
         })
     }
-}
+})
 </script>

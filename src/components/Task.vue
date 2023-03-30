@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import { Task } from '@/interfaces'
-import task from '@/store/modules/task'
 import Vue from 'vue'
 
 interface Props {
@@ -39,6 +38,11 @@ export default Vue.extend({
             // }
 
             // return task
+            const todos = this.$store.getters['assignment/tasks'](this.index)
+            if (todos.length > 5) {
+                return todos.slice(0, 5)
+            }
+
             return this.$store.getters['assignment/tasks'](this.index)
         }
     }
