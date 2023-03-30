@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn :color="color" variant="outlined">
+        <v-btn :color="color" variant="outlined" @click="onClick">
             {{ text }}
             <v-icon size="medium" v-if="preIcon">
                 {{ preIcon }}
@@ -18,14 +18,14 @@ export default Vue.extend({
     props: {
         text: {
             type: String,
-            required: true
+            default: ''
         },
         color: {
             type: String,
-            required: true,
-            validator: function (value: string) {
-                return ['success', 'warning', 'danger', 'primary'].includes(value)
-            }
+            default: '',
+            // validator: function (value: string) {
+            //     return ['success', 'warning', 'danger', 'primary', ''].includes(value)
+            // }
         },
         preIcon: {
             type: String,
@@ -34,6 +34,11 @@ export default Vue.extend({
         appendIcon: {
             type: String,
             default: ''
+        }
+    },
+    methods: {
+        onClick() {
+            this.$emit('buttonclick');
         }
     }
 })

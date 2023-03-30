@@ -1,26 +1,23 @@
 <template>
     <div>
-        <v-card-item v-for="(task, index) of getTasks" :key="index">
-            <p class="fs-4 mt-3">
+        <div v-for="(task, index) of getTasks" :key="index">
+            <p class="mt-3">
                 <v-icon v-if="task.done" color="success">
                     mdi-check
                 </v-icon>
                 {{ task.value }}
             </p>
-        </v-card-item>
+        </div>
+        <ButtonOutline text="" pre-icon="mdi-arrow-down" color="indigo-lighten-3"/>
     </div>
 </template>
 
 <script lang="ts">
-import { Task } from '@/interfaces'
-import Vue from 'vue'
-
-interface Props {
-    tasks: Task[]
-}
+import { Task } from '@/interfaces';
+import Vue from 'vue';
+import ButtonOutline from './ButtonOutline.vue';
 
 export default Vue.extend({
-    //TODO Добавить тип пропса
     props: {
         index: {
             type: Number,
@@ -30,14 +27,11 @@ export default Vue.extend({
             }
         }
     },
+    components: {
+        ButtonOutline
+    },
     computed: {
         getTasks(): Task[] {
-            // const taks: Task[] = this.$store.getters['assignment/tasks'](this.index)
-            // if (task.length > 5) {
-            //     return taks.slice(4, task.length)
-            // }
-
-            // return task
             const todos = this.$store.getters['assignment/tasks'](this.index)
             if (todos.length > 5) {
                 return todos.slice(0, 5)

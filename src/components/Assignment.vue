@@ -2,11 +2,11 @@
     <div>
         <v-row v-for="(assigment, index) of assignmentList" :key="index">
             <v-col>
-                <v-card :title="assigment.title" variant="outlined">
+                <v-card :title="assigment.title" variant="outlined" class="pa-3">
                     <h2>{{ assigment.title }}</h2>
                     <AssignmentTask :index="index" />
                     <v-card-actions>
-                        <ButtonOutline text="Change" color="success" class="mr-3" />
+                        <ButtonOutline text="Change" color="primary" class="mr-3" />
                         <ButtonOutline text="Delete" color="warning" class="mr-3" />
                     </v-card-actions>
                 </v-card>
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import AssignmentTask from './Task.vue';
+import AssignmentTask from './AssignmentTask.vue';
 import ButtonOutline from './ButtonOutline.vue';
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
