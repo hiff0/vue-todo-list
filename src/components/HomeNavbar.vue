@@ -3,14 +3,12 @@
         <v-app-bar app color="primary" dark>
 
             <v-spacer></v-spacer>
-
-            <v-btn outlined class="ml-3">Главная</v-btn>
-            <v-btn outlined class="ml-3">Фото</v-btn>
+            <v-avatar color="success"></v-avatar>
         </v-app-bar>
     </v-container>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 
 }

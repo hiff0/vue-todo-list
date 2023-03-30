@@ -14,12 +14,15 @@ module.exports = {
   overrides: [
     {
       files: ['src/views/**/*.vue'],
-      rules: {
-        'vue/multi-word-component-names': 0,
-      },
     },
   ],
   rules: {
+    "vue/multi-word-component-names": [
+      "error",
+      {
+        ignores: ["Assignment", "Home", "Task"], //Component names to be ignored
+      },
+    ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }
