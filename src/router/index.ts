@@ -13,7 +13,11 @@ const routes: RouteConfig[] = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('../views/EditView.vue')
+    component: () => import('../views/AdditionView.vue')
+  },
+  {
+    path: '*',
+    component: () => import('../views/PageNotFoundView.vue')
   }
 ]
 
