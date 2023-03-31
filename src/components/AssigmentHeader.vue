@@ -9,18 +9,18 @@
             </v-fade-transition>
         </h2>
         <v-spacer></v-spacer>
-        <AdditionDialog />
+        <DialogAddition />
     </div>
 </template>
 
 <script lang="ts">
-import AdditionDialog from './AdditionDialog.vue';
+import DialogAddition from './DialogAddition.vue';
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
 
 export default Vue.extend({
     components: {
-        AdditionDialog
+        DialogAddition
     },
     computed: {
         ...mapGetters('assignment', {

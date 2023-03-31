@@ -23,9 +23,6 @@ export default Vue.extend({
         color: {
             type: String,
             default: '',
-            // validator: function (value: string) {
-            //     return ['success', 'warning', 'danger', 'primary', ''].includes(value)
-            // }
         },
         preIcon: {
             type: String,

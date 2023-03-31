@@ -15,9 +15,13 @@ export interface AssignmentState {
     assignmentList: Assignment[]
 }
 
+export interface RootState {
+    version: string;
+  }
+
+
 export interface AssignmentGetters {
     assignments: (state: AssignmentState) => Assignment[];
     assignment: (state: AssignmentState, id: number) => Assignment | undefined;
     tasks: (state: AssignmentState) => (index: number) => Task[];
 }
-

@@ -7,7 +7,7 @@
                     <AssignmentTask :index="index" />
                     <v-card-actions>
                         <ButtonOutline text="Change" color="primary" class="mr-3" />
-                        <ButtonOutline text="Delete" color="warning" class="mr-3" />
+                        <DialogDelete :index="index"/>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -18,13 +18,21 @@
 <script lang="ts">
 import AssignmentTask from './AssignmentTask.vue';
 import ButtonOutline from './ButtonOutline.vue';
+import DialogDelete from './DialogDelete.vue';
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
 
 export default Vue.extend({
+    data() {
+        return {
+            dialog: false,
+        }
+    },
     components: {
         AssignmentTask,
-        ButtonOutline
+        ButtonOutline,
+        DialogDelete
+
     },
     computed: {
         ...mapGetters('assignment', {
