@@ -1,56 +1,99 @@
 <template>
-    <v-dialog v-model="dialog" persistent width="auto">
-      <template v-slot:activator="{ props }">
-        <ButtonOutline text="Add" color="primary" @buttonclick="openDialog" v-bind="props" append-icon="mdi-plus"/>
-      </template>
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Adding assignment</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col>
-                
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <ButtonOutline text="Close" color="warning" @buttonclick="closeDialog" class="mr-3"/>
-          <ButtonOutline text="Save" color="primary" @buttonclick="closeDialog"/>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+  <v-dialog v-model="dialog" persistent width="auto">
+    <template v-slot:activator="{ props }">
+      <ButtonOutline text="Add" color="primary" @buttonclick="openDialog" append-icon="mdi-plus" v-bind="props"
+        v-bind:title="message" />
+    </template>
+    <v-card style="min-width: 350px">
+      <v-card-title>
+        <span class="text-h5">Adding assignment</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field v-model="additionAssignmentTitle" label="Assignment title" variant="solo">
+              </v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <ButtonOutline text="Add task" color="primary" @buttonclick="addTask" />
+            </v-col>
+          </v-row>
+          <v-row v-for="(task, index) in additionTasks" :key="index">
+            <v-col cols="11">
+              <v-text-field v-model="task.value" label="Task title">
+              </v-text-field>
+            </v-col>
+            <v-col cols="1">
+              <v-icon @click="deleteTask(index)" :title="'Delete Task'">
+                mdi-minus-circle
+              </v-icon>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <ButtonOutline text="Close" color="warning" @buttonclick="closeDialog" class="mr-3" />
+        <ButtonOutline text="Save" color="success" @buttonclick="addAssignment" />
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { Task } from '@/interfaces';
 import ButtonOutline from './ButtonOutline.vue';
 
+interface DataInerface {
+  dialog: boolean;
+  additionAssignmentTitle: string | null;
+  additionTasks: Task[];
+  message: string;
+}
 
-// TODO добавить тип для data
 export default Vue.extend({
-    data: () => ({
+  data: (): DataInerface => {
+    return {
       dialog: false,
       additionAssignmentTitle: '',
-      additionTasksTitle: []
-    }),
-    components: {
-      ButtonOutline
+      additionTasks: [],
+      message: 'Add assignment'
+    }
+  },
+  components: {
+    ButtonOutline
+  },
+  methods: {
+    openDialog(): void {
+      this.dialog = true;
     },
-    methods: {
-      openDialog(): void {
-        this.dialog = true;
-      },
-      closeDialog(): void {
-        this.dialog = false;
-      },
+    closeDialog(): void {
+      this.dialog = false;
     },
+    addTask(): void {
+      const task = {
+        id: this.additionTasks.length + 1,
+        value: '',
+        done: false
+      }
+      this.additionTasks.push(task);
+    },
+    deleteTask(index: number): void {
+      this.additionTasks.splice(index, 1);
+    },
+    addAssignment(): void {
+      const assignment = {
+        title: this.additionAssignmentTitle,
+        tasks: this.additionTasks
+      }
+      this.$store.dispatch('assignment/addAssignment', assignment);
+      this.additionAssignmentTitle = null;
+      this.additionTasks = [];
+      this.dialog = false;
+    },
+  },
 })
 </script>

@@ -2,12 +2,12 @@
     <div>
         <v-row v-for="(assigment, index) of assignmentList" :key="index">
             <v-col>
-                <v-card :title="assigment.title" variant="outlined" class="pa-3">
+                <v-card variant="outlined" class="pa-3">
                     <h2>{{ assigment.title }}</h2>
                     <AssignmentTask :index="index" />
                     <v-card-actions>
                         <ButtonOutline text="Change" color="primary" class="mr-3" />
-                        <DialogDelete :index="index"/>
+                        <DialogDelete :index="index" />
                     </v-card-actions>
                 </v-card>
             </v-col>

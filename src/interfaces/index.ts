@@ -17,7 +17,7 @@ export interface AssignmentState {
 
 export interface RootState {
     version: string;
-  }
+}
 
 
 export interface AssignmentGetters {

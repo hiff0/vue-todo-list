@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-container style="max-width: 500px">
+  <v-container style="max-width: 500px">
     <v-text-field v-model="newTask" label="What are you working on?" variant="solo" @keydown.enter="create">
       <template v-slot:append>
         <v-fade-transition>
@@ -64,7 +64,7 @@
         </template>
       </v-slide-y-transition>
     </v-card>
-  </v-container> -->
+  </v-container>
 </template>
 
 <script>
