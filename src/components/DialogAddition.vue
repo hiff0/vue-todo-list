@@ -54,6 +54,8 @@ interface DataInerface {
   message: string;
 }
 
+// TODO добавить валидацию для title задания и value задачи
+
 export default Vue.extend({
   data: (): DataInerface => {
     return {
