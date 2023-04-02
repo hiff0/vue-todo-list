@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn :color="color" variant="outlined" @click="onClick" :size="size">
+        <v-btn :color="color" variant="outlined" @click="onClick" :size="size" :disabled="disabled">
             {{ text }}
             <v-icon size="medium" v-if="preIcon">
                 {{ preIcon }}
@@ -35,6 +35,10 @@ export default Vue.extend({
         size: {
             type: String,
             default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {

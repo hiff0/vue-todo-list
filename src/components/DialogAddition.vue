@@ -12,7 +12,8 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="additionAssignmentTitle" label="Assignment title" variant="solo">
+              <v-text-field v-model="additionAssignmentTitle" label="Assignment title" variant="solo"
+                @input="assignmentValidation">
               </v-text-field>
             </v-col>
           </v-row>
@@ -23,7 +24,7 @@
           </v-row>
           <v-row v-for="(task, index) in additionTasks" :key="index">
             <v-col cols="11">
-              <v-text-field v-model="task.value" label="Task title">
+              <v-text-field v-model="task.value" label="Task title" @input="taskValidation">
               </v-text-field>
             </v-col>
             <v-col cols="1">
@@ -36,7 +37,7 @@
       </v-card-text>
       <v-card-actions>
         <ButtonOutline text="Close" color="warning" @buttonclick="closeDialog" class="mr-3" />
-        <ButtonOutline text="Save" color="success" @buttonclick="addAssignment" />
+        <ButtonOutline text="Save" color="success" @buttonclick="addAssignment" :disabled="buttonDisabled" />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -49,9 +50,11 @@ import ButtonOutline from './ButtonOutline.vue';
 
 interface DataInerface {
   dialog: boolean;
-  additionAssignmentTitle: string | null;
+  additionAssignmentTitle: string;
   additionTasks: Task[];
   message: string;
+  isTasksMatching: boolean;
+  isAssignmentTitleMatching: boolean;
 }
 
 // TODO добавить валидацию для title задания и value задачи
@@ -62,11 +65,22 @@ export default Vue.extend({
       dialog: false,
       additionAssignmentTitle: '',
       additionTasks: [],
-      message: 'Add assignment'
+      message: 'Add assignment',
+      isTasksMatching: false,
+      isAssignmentTitleMatching: false,
     }
   },
   components: {
     ButtonOutline
+  },
+  computed: {
+    buttonDisabled() {
+      if (this.isAssignmentTitleMatching === true && this.isTasksMatching === true) {
+        return true;
+      }
+
+      return false;
+    }
   },
   methods: {
     openDialog(): void {
@@ -75,6 +89,23 @@ export default Vue.extend({
     closeDialog(): void {
       this.dialog = false;
     },
+    assignmentValidation(): void {
+      if (/.*/s.test(this.additionAssignmentTitle)) {
+        this.isAssignmentTitleMatching = true;
+      } else {
+        this.isAssignmentTitleMatching = false;
+      }
+    },
+    taskValidation(): void {
+      for (const task of this.additionTasks) {
+        if (!(/^[A-Z0-9]/.test(task.value))) {
+          this.isTasksMatching = false;
+          return;
+        }
+      }
+
+      this.isTasksMatching = true;
+    },
     addTask(): void {
       const task = {
         id: this.additionTasks.length + 1,
@@ -82,6 +113,7 @@ export default Vue.extend({
         done: false
       }
       this.additionTasks.push(task);
+      this.isTasksMatching = false;
     },
     deleteTask(index: number): void {
       this.additionTasks.splice(index, 1);
@@ -92,7 +124,7 @@ export default Vue.extend({
         tasks: this.additionTasks
       }
       this.$store.dispatch('assignment/addAssignment', assignment);
-      this.additionAssignmentTitle = null;
+      this.additionAssignmentTitle = '';
       this.additionTasks = [];
       this.dialog = false;
     },
