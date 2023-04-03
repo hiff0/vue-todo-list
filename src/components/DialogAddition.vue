@@ -81,11 +81,6 @@ import Vue from 'vue';
 import { Task } from '@/interfaces';
 import ButtonOutline from './ButtonOutline.vue';
 
-interface TaskInterface extends Task { 
-  pattern: RegExp;
-  class: string;
-}
-
 interface Rules {
   required: (value: string) => true | "Field is required";
 }
@@ -93,7 +88,7 @@ interface Rules {
 interface DataInerface {
   dialog: boolean;
   additionAssignmentTitle: string;
-  additionTasks: TaskInterface[];
+  additionTasks: Task[];
   message: string;
   form: boolean;
   rules: Rules
@@ -130,8 +125,6 @@ export default Vue.extend({
         id: this.additionTasks.length + 1,
         value: '',
         done: false,
-        pattern: /^\s*$/,
-        class: 'textfield__valid'
       }
       this.additionTasks.push(task);
     },
