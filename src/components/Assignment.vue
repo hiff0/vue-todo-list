@@ -6,7 +6,11 @@
                     <h2>{{ assigment.title }}</h2>
                     <AssignmentTask :index="index" />
                     <v-card-actions>
-                        <ButtonOutline text="Change" color="primary" class="mr-3" />
+                        <ButtonOutline 
+                            text="Change" 
+                            color="primary" 
+                            class="mr-3" 
+                        />
                         <DialogDelete :index="index" />
                     </v-card-actions>
                 </v-card>

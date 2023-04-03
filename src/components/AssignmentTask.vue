@@ -9,8 +9,22 @@
             </p>
         </div>
         <template v-if="isShowButton">
-            <ButtonOutline text="" pre-icon="mdi-arrow-down" color="indigo-lighten-3" class="ml-2" @buttonclick="getAllTasks" v-if="!isShowAllTasks"/>
-            <ButtonOutline text="" pre-icon="mdi-arrow-up" color="indigo-lighten-3" class="ml-2" @buttonclick="closeAllTasks" v-else/>
+            <ButtonOutline 
+                text="" 
+                pre-icon="mdi-arrow-down" 
+                color="indigo-lighten-3" 
+                class="ml-2" 
+                @buttonclick="getAllTasks" 
+                v-if="!isShowAllTasks"
+            />
+            <ButtonOutline 
+                text="" 
+                pre-icon="mdi-arrow-up" 
+                color="indigo-lighten-3" 
+                class="ml-2" 
+                @buttonclick="closeAllTasks" 
+                v-else
+            />
         </template>
     </div>
 </template>

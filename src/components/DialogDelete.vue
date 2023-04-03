@@ -3,15 +3,30 @@
             persistent
             width="auto">
         <template v-slot:activator="{props}">
-            <ButtonOutline text="Delete" color="warning" class="mr-3" v-bind="props" @buttonclick="openDialog"/>
+            <ButtonOutline 
+                text="Delete" 
+                color="warning" 
+                class="mr-3"
+                v-bind="props" 
+                @buttonclick="openDialog"
+            />
         </template>
         <v-card>
             <v-card-title class="text-h5">
                 Сonfirm action
             </v-card-title>
             <v-card-actions>
-                <ButtonOutline text="Cancel" color="primary" class="mr-5" @buttonclick="closeDialog"/>
-                <ButtonOutline text="Delete" color="warning" @buttonclick="confirmDelete"/>
+                <ButtonOutline 
+                    text="Cancel" 
+                    color="primary" 
+                    class="mr-5" 
+                    @buttonclick="closeDialog"
+                />
+                <ButtonOutline 
+                    text="Delete" 
+                    color="warning" 
+                    @buttonclick="confirmDelete"
+                />
             </v-card-actions>
         </v-card>
     </v-dialog>
