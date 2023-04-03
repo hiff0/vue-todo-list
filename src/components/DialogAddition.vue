@@ -99,7 +99,8 @@ interface DataInerface {
   rules: Rules
 }
 
-// TODO добавить валидацию для title задания и value задачи
+// FIXME убрать валидацию сразу после добавления задания
+// скорее всего из-за того. что присваиваю additionAssignmentTitle = ''
 
 export default Vue.extend({
   data: (): DataInerface => {
