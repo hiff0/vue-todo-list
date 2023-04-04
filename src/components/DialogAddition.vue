@@ -14,7 +14,7 @@
         <span class="text-h5">Adding assignment</span>
       </v-card-title>
       <v-card-text>
-        <v-form v-model="form">
+        <v-form v-model="form" ref="form">
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -87,21 +87,20 @@ interface Rules {
 
 interface DataInerface {
   dialog: boolean;
-  additionAssignmentTitle: string;
+  additionAssignmentTitle: string | null;
   additionTasks: Task[];
   message: string;
   form: boolean;
   rules: Rules
 }
 
-// FIXME убрать валидацию сразу после добавления задания
-// скорее всего из-за того. что присваиваю additionAssignmentTitle = ''
+// TODO разобрать с ошибкой типов this.$refs.form
 
 export default Vue.extend({
   data: (): DataInerface => {
     return {
       dialog: false,
-      additionAssignmentTitle: '',
+      additionAssignmentTitle: null,
       additionTasks: [],
       message: 'Add assignment',
       form: false,
@@ -137,9 +136,11 @@ export default Vue.extend({
         tasks: this.additionTasks,
       }
       this.$store.dispatch('assignment/addAssignment', assignment);
-      this.additionAssignmentTitle = '';
+      this.additionAssignmentTitle = null;
       this.additionTasks = [];
       this.dialog = false;
+      // console.log(this.$refs.form)
+      // this.$refs.form?.resetValidation();
     },
   },
 })
