@@ -80,14 +80,11 @@
           <v-checkbox 
             v-model="task.done" 
           >
-            <!-- <template v-slot:label>
-              <v-text-filed
-                v-model="task.value"
-              >
-              </v-text-filed> -->
-            <!-- </template> -->
           </v-checkbox>
-
+          <v-text-filed
+            v-model="task.value"
+          >
+          </v-text-filed> -->
         </v-col>
       </v-row>
     </v-card>
