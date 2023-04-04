@@ -1,5 +1,5 @@
 <template>
-  <v-container style="max-width: 500px">
+  <!-- <v-container style="max-width: 500px">
     <v-text-field v-model="newTask" label="What are you working on?" variant="solo" @keydown.enter="create">
       <template v-slot:append>
         <v-fade-transition>
@@ -64,52 +64,82 @@
         </template>
       </v-slide-y-transition>
     </v-card>
+    {{ assignmentList(parseInt($route.params.id) - 1) }}
+  </v-container> -->
+  <v-container>
+    <v-card>
+      <v-text-field
+        v-model="assignment.title"
+        :rules="[rules.required]"
+        label="Assignment title" 
+        clearable
+      >
+      </v-text-field>
+      <v-row v-for="(task, index) in assignment.tasks" :key="index">
+        <v-col cols="12">
+          <v-checkbox 
+            v-model="task.done" 
+          >
+            <!-- <template v-slot:label>
+              <v-text-filed
+                v-model="task.value"
+              >
+              </v-text-filed> -->
+            <!-- </template> -->
+          </v-checkbox>
+
+        </v-col>
+      </v-row>
+    </v-card>
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters } from 'vuex'
+import { Assignment } from '@/interfaces';
+import Vue from 'vue';
 
-export default {
-  data: () => ({
-    tasks: [
-      {
-        done: false,
-        text: 'Foobar',
-      },
-      {
-        done: false,
-        text: 'Fizzbuzz',
-      },
-    ],
-    newTask: null,
-  }),
-
-  computed: {
-    ...mapGetters('assignment', {
-      assignmentList: 'assignments',
-      getTasks: 'tasks'
-    }),
-    completedTasks() {
-      return this.tasks.filter(task => task.done).length
-    },
-    progress() {
-      return this.completedTasks / this.tasks.length * 100
-    },
-    remainingTasks() {
-      return this.tasks.length - this.completedTasks
-    },
-  },
-
-  methods: {
-    create() {
-      this.tasks.push({
-        done: false,
-        text: this.newTask,
-      })
-
-      this.newTask = null
-    },
-  },
+interface Rules {
+  required: (value: string) => true | "Field is required";
 }
+
+interface DataInerface {
+  enabled: boolean;
+  rules: Rules
+}
+
+export default Vue.extend({
+  data(): DataInerface {
+    return {
+      enabled: false,
+      rules: {
+        required: value => !!value || 'Field is required',
+      },
+    }
+  },
+  computed: {
+    assignment(): Assignment { 
+      return this.$store.getters['assignment/getAssignmentByIndext'](parseInt(this.$route.params.id) - 1);
+    },
+    // completedTasks() {
+    //   return this.tasks.filter(task => task.done).length
+    // },
+    // progress() {
+    //   return this.completedTasks / this.tasks.length * 100
+    // },
+    // remainingTasks() {
+    //   return this.tasks.length - this.completedTasks
+    // },
+  },
+  methods: {
+    // create() {
+    //   this.tasks.push({
+    //     done: false,
+    //     text: this.newTask,
+    //   })
+
+    //   this.newTask = null
+    // },
+  },
+})
 </script>

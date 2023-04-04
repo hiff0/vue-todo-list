@@ -11,8 +11,7 @@ const routes: RouteConfig[] = [
     component: HomeView
   },
   {
-    path: '/edit',
-    name: 'edit',
+    path: '/edit/:id',
     component: () => import('../views/EditAssignmentView.vue')
   },
   {

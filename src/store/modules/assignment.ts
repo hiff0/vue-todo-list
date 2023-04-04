@@ -105,6 +105,9 @@ const assignment: Module<AssignmentState, RootState> = {
                 }
             }
         },
+        getAssignmentByIndext: (state) => (index: number): Assignment | undefined => { 
+            return state.assignmentList[index];
+        },
         tasks: (state) => (index: number): Task[] => {
             return state.assignmentList[index].tasks;
         }

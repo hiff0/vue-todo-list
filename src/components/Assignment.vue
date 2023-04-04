@@ -6,11 +6,13 @@
                     <h2>{{ assigment.title }}</h2>
                     <AssignmentTask :index="index" />
                     <v-card-actions>
-                        <ButtonOutline 
+                        <router-link :to="`/edit/${index + 1}`">
+                            <ButtonOutline 
                             text="Change" 
                             color="primary" 
                             class="mr-3" 
                         />
+                        </router-link>
                         <DialogDelete :index="index" />
                     </v-card-actions>
                 </v-card>
